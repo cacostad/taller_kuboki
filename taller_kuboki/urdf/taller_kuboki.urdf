@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<robot name="robot_kuboki">
+
+
+    <link name="base_footprint"/>
+
+    <joint name="base_fixed_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+    </joint>
+
+    <link name="base_link">
+        <inertial>
+            <mass value="1.0"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.0 0.0 0.035" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.177" length="0.089"/>    
+            </geometry>
+            <material name="Black">
+                <color rgba="0.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.035" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder radius="0.177" length="0.089"/> 
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- Definición de ruedas -->
+
+    <!-- Rueda motorizada 1-->
+    <joint name="rueda_izquierda_joint" type="continuous">
+      <origin xyz="0.0 0.115 0.0" rpy="$(eval -pi/2) 0.0 0.0"/>
+      <parent link="base_link"/>
+      <child link="rueda_izquierda_link"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <limit effort="10" velocity="6.0"/>
+    </joint>
+
+    <!--TRansmision rueda 1-->
+
+    <!-- <transmission name="$trans_izquierda">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="rueda_izquierda_joint">
+				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor1">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+	</transmission> -->
+
+
+    <link name="rueda_izquierda_link">
+        <inertial>
+            <mass value="1.0"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        </inertial>
+
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="0.0206" radius="0.035"/>
+            </geometry>
+            <material name="Blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="0.0206" radius="0.035"/>
+            </geometry>
+        </collision>
+
+    </link>
+
+    <!-- Rueda motorizada 2-->
+    <joint name="rueda_derecha_joint" type="continuous">
+      <origin xyz="0.0 -0.115 0.0" rpy="$(eval -pi/2) 0 0"/>
+      <parent link="base_link"/>
+      <child link="rueda_derecha_link"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <limit effort="10" velocity="6.0"/>
+    </joint>
+    
+    <!--TRansmision rueda 2-->
+    <!-- <transmission name="$trans_derecha">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="rueda_derecha_joint">
+				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			</joint>
+			<actuator name="motor2">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+	</transmission> -->
+
+    <link name="rueda_derecha_link">
+    
+        <inertial>
+            <mass value="1.0"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        </inertial>
+
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="0.0206" radius="0.035"/>
+            </geometry>
+            <material name="Blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <cylinder length="0.0206" radius="0.035"/>
+            </geometry>
+        </collision>
+
+    </link>
+
+
+
+    <!--Rueda de soporte 1-->
+
+    <joint name="rueda_frontal_joint" type="fixed">
+      <origin xyz="0.135 0.0 0.0" rpy="$(eval -pi/2) 0 0"/>
+      <parent link="base_link"/>
+      <child link="rueda_frontal_link"/>
+    </joint>
+
+    <link name="rueda_frontal_link">
+
+        <inertial>
+            <mass value="0.01"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        </inertial>
+
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.017"/>
+            </geometry>
+            <material name="Blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.017"/>
+            </geometry>
+        </collision>
+
+    </link>
+
+    <!--Rueda de soporte 2-->
+
+    <joint name="rueda_atras_joint" type="fixed">
+      <origin xyz="-0.135 0.0 0.0" rpy="$(eval -pi/2) 0 0"/>
+      <parent link="base_link"/>
+      <child link="rueda_atras_link"/>
+    </joint>
+
+    <link name="rueda_atras_link">
+
+        <inertial>
+            <mass value="0.01"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        </inertial>
+
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.017"/>
+            </geometry>
+            <material name="Blue">
+                <color rgba="0.0 0.0 1.0 1.0"/>
+            </material>
+        </visual>
+
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <sphere radius="0.017"/>
+            </geometry>
+        </collision>
+
+    </link>
+
+
+    <!-- <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+         <robotNamespace>$(arg robot_namespace)</robotNamespace>
+         <legacyModeNS>true</legacyModeNS>
+      </plugin>
+    </gazebo> -->
+
+    
+        
+</robot>

@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <!-- Cargar modelo -->
+    <arg 
+        name="model" 
+        default="$(find taller_kuboki)/urdf/taller_kuboki.urdf"
+    />
+
+    <!-- Parse modelo -->
+    
+    <param 
+        name="robot_description" 
+        command="$(find xacro)/xacro $(arg model)"
+    />
+    
+    <!-- Publishers -->
+
+    <node 
+        pkg="robot_state_publisher" 
+        type="robot_state_publisher" 
+        name="rob_pub"
+    />
+
+    <node 
+        pkg="joint_state_publisher_gui" 
+        type="joint_state_publisher_gui" 
+        name="joint_state"
+    />   
+    
+    
+    <!-- Cargar controladores-->
+
+   <!--  <rosparam 
+       file="$(find taller_kuboki)/config/controller_taller_kuboki_def.yaml" 
+       command="load"
+    /> --> 
+
+    <!-- <node 
+        name="spawner_ctrols" 
+        pkg="controller_manager" 
+        type="spawner"
+        respawn="false"   
+        output="screen"
+        args=" jnt_st_controller_kuboki
+               wheel_controller_1 wheel_controller_2" 
+    /> -->
+
+    
+
+    <!-- rviz -->
+
+    <node 
+        pkg="rviz" 
+        type="rviz" 
+        name="rviz"
+        args= "-d $(find taller_kuboki)/rviz/taller_kuboki_config.rviz"
+    />
+
+    <!-- Gazebo -->
+
+   <!--  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+       <arg name="use_sim_time" default="true"/>    
+    </include> -->
+
+    <!-- Spawn robot en gazebo -->
+
+    <!-- <node 
+       pkg="gazebo_ros" 
+       type="spawn_model"
+       name="spawn_kuboki"  
+       respawn="false"
+       args=" -param robot_description
+              -urdf
+              -modelo kuboki_robot"
+    /> -->
+    
+    
+    
+
+</launch>
